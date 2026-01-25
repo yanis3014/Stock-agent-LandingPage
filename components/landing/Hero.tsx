@@ -1,7 +1,7 @@
 "use client";
 
 import { Play } from "lucide-react";
-import AiOrb from "./AiOrb";
+import AiParticleSphere from "./AiParticleSphere";
 
 export default function Hero() {
   return (
@@ -14,15 +14,15 @@ export default function Hero() {
         }}
       />
 
-      {/* AI Orb - positioned behind content */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 opacity-60">
-        <AiOrb />
+      {/* AI Particle Sphere - living energy visualization */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 opacity-70">
+        <AiParticleSphere />
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
         {/* Main Headline */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
           Stop managing inventory.{" "}
           <span 
             className="text-primary"
@@ -43,23 +43,12 @@ export default function Hero() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           {/* Primary CTA */}
-          <button 
-            className="group px-8 py-4 bg-primary text-background font-semibold rounded-lg text-lg hover:bg-primary/90 transition-all duration-300"
-            style={{
-              boxShadow: "0 0 30px rgba(0, 255, 148, 0.3)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 50px rgba(0, 255, 148, 0.6)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 30px rgba(0, 255, 148, 0.3)";
-            }}
-          >
+          <button className="btn-primary text-lg">
             Start Free Analysis
           </button>
 
           {/* Secondary CTA */}
-          <button className="group px-8 py-4 bg-surface/50 backdrop-blur-sm text-text-main font-semibold rounded-lg text-lg border border-primary/20 hover:border-primary/40 hover:bg-surface/70 transition-all duration-300 flex items-center gap-2">
+          <button className="glass-card group px-8 py-4 text-text-main font-semibold text-lg flex items-center gap-2 hover:scale-105 active:scale-95">
             <Play className="w-5 h-5 group-hover:text-primary transition-colors" />
             Watch Demo (1 min)
           </button>

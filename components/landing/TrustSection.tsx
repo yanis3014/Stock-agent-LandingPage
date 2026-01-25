@@ -22,7 +22,7 @@ export default function TrustSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h3 className="text-xl text-text-muted mb-8">
+          <h3 className="text-xl text-text-muted mb-8 tracking-tight">
             Powered by cutting-edge technology.
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-12">
@@ -65,7 +65,7 @@ export default function TrustSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative bg-surface/60 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 md:p-12 hover:border-primary/40 transition-colors duration-300">
+          <div className="glass-card relative p-8 md:p-12">
             {/* Quote Mark */}
             <div className="absolute top-6 left-6 text-6xl text-primary/20 font-serif">
               "

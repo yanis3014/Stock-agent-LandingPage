@@ -18,7 +18,7 @@ export default function FinalCTA() {
           className="text-center"
         >
           {/* Title */}
-          <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-6 tracking-tight">
             Ready to say goodbye to Excel?
           </h2>
 
@@ -31,7 +31,7 @@ export default function FinalCTA() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="group relative w-full md:w-auto px-12 py-5 bg-primary text-background text-lg font-bold rounded-xl hover:bg-primary/90 hover:shadow-[0_0_40px_rgba(0,255,148,0.4)] transition-all duration-300"
+            className="btn-primary group relative w-full md:w-auto text-lg"
           >
             <span className="flex items-center justify-center gap-3">
               Start Free Analysis
