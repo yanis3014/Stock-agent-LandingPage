@@ -122,7 +122,7 @@ export default function AiParticleSphere() {
         },
       },
       detectRetina: true,
-    }),
+    }) as any,
     []
   );
 

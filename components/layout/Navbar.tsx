@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ isLoaded = true }: { isLoaded?: boolean }) {
   const pathname = usePathname();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -20,15 +20,15 @@ export default function Navbar() {
     <motion.nav
       className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl"
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      animate={{ y: isLoaded ? 0 : -100, opacity: isLoaded ? 1 : 0 }}
+      transition={{ duration: 1.2, ease: "easeOut", delay : isLoaded ? 1 : 0}}
     >
       <div className="navbar-floating backdrop-blur-xl bg-black/40 border border-white/10 rounded-full px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <Box className="w-5 h-5 text-primary group-hover:rotate-12 transition-transform duration-300" />
           <span className="text-base font-bold">
-            flow<span className="text-primary">Stock</span>
+            Flow<span className="text-primary">Stock</span>
           </span>
         </Link>
 

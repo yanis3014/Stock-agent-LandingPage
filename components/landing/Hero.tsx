@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import AiParticleSphere from "./AiParticleSphere";
 
@@ -22,26 +23,41 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
         {/* Main Headline */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
-          Stop managing inventory.{" "}
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
+        >
+          Stop managing inventory{" "} <br />
           <span 
             className="text-primary"
             style={{
               filter: "drop-shadow(0 0 20px rgba(0, 255, 148, 0.6))",
             }}
           >
-            Let AI do it.
+            Let AI do it
           </span>
-        </h1>
+        </motion.h1>
 
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-text-muted mb-12 max-w-3xl mx-auto leading-relaxed">
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-xl md:text-2xl text-text-muted mb-12 max-w-3xl mx-auto leading-relaxed"
+        >
           Connect your data in 2 clicks. Our autonomous agent monitors stock 24/7, 
           predicts shortages, and drafts supplier orders. No complex formulas.
-        </p>
+        </motion.p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           {/* Primary CTA */}
           <button className="btn-primary text-lg">
             Start Free Analysis
@@ -52,7 +68,7 @@ export default function Hero() {
             <Play className="w-5 h-5 group-hover:text-primary transition-colors" />
             Watch Demo (1 min)
           </button>
-        </div>
+        </motion.div>
 
         {/* Optional: Social proof or trust indicators */}
         <div className="mt-16 flex items-center justify-center gap-8 text-text-muted text-sm">

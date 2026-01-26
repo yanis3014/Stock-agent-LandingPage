@@ -97,7 +97,7 @@ export default function Footer() {
             <h4 className="text-text-main font-semibold mb-4">Social</h4>
             <div className="flex gap-4">
               <a
-                href="https://twitter.com"
+                href="https://x.com/FlowStockAgent"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-surface/40 border border-primary/20 flex items-center justify-center hover:border-primary/50 hover:bg-surface/60 transition-all duration-300 group"

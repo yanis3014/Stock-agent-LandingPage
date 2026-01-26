@@ -1,71 +1,84 @@
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion"; // Ajout de AnimatePresence pour être propre
+import { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/landing/Hero";
+import BentoGrid from "@/components/landing/BentoGrid";
 import TrustSection from "@/components/landing/TrustSection";
 import FinalCTA from "@/components/landing/FinalCTA";
-import { TrendingUp, Eye, Bot } from "lucide-react";
-import Link from "next/link";
+import SplashScreen from "@/components/ui/SplashScreen";
 
 export default function Home() {
-  const features = [
-    {
-      icon: TrendingUp,
-      title: "Sales Forecasting",
-      description: "AI predicts what will sell",
-    },
-    {
-      icon: Eye,
-      title: "24/7 Monitoring",
-      description: "Never miss a stockout",
-    },
-    {
-      icon: Bot,
-      title: "Auto-Replenishment",
-      description: "Orders draft themselves",
-    },
-  ];
+  // On garde uniquement ces deux états, isLoading est inutile ici
+  const [showSplash, setShowSplash] = useState(true);
+  const [showHome, setShowHome] = useState(false);
+
+  useEffect(() => {
+    // On utilise showSplash comme condition de blocage
+    if (showSplash) {
+      // 1. Bloquer le scroll TANT que le Splash est là
+      document.body.style.overflow = "hidden";
+      
+      // 2. Forcer la position tout en haut
+      window.scrollTo(0, 0);
+    } else {
+      // 3. Réactiver le scroll DÈS que le Splash disparaît
+      document.body.style.overflow = "unset";
+    }
+  }, [showSplash]); // Le useEffect réagit au changement de showSplash
 
   return (
-    <>
-      <Navbar />
-      <Hero />
+    <div className="relative min-h-screen overflow-x-hidden">
+      <AnimatePresence mode="wait">
+        {showSplash && (
+          <SplashScreen 
+            finishLoading={() => setShowSplash(false)} 
+            onTransitionStart={() => setShowHome(true)} 
+          />
+        )}
+      </AnimatePresence>
+      
 
-      {/* Simplified Features Summary */}
-      <section className="py-16 px-6 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={index}
-                  className="text-center group cursor-pointer"
-                >
-                  <div className="inline-flex p-4 bg-primary/10 rounded-lg mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-text-main mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-text-muted text-sm">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-          <div className="text-center mt-12">
-            <Link
-              href="/product"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors duration-200 font-semibold"
-            >
-              Explore all features →
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* 1. Global Background (Fixed Layer 0) */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <motion.div 
+          className="absolute inset-0 opacity-[0.8]"
+          animate={{ 
+            backgroundPosition: ["0px 0px", "60px 60px"] 
+          }}
+          transition={{ 
+            duration: 20, 
+            ease: "linear", 
+            repeat: Infinity 
+          }}
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px)
+            `,
+            backgroundSize: "30px 30px"
+          }}
+        />
+      </div>
 
-      <TrustSection />
-      <FinalCTA />
-    </>
+<Navbar isLoaded={showHome} />
+      {/* 2. Scrollable Content (Layer 10) */}
+      <motion.div
+        initial={{ y: 100, scale: 0.98, opacity: 0 }}
+        animate={{ 
+          y: showHome ? 0 : 100, 
+          scale: showHome ? 1 : 0.98, 
+          opacity: showHome ? 1 : 0 
+        }}
+        transition={{ duration: 0.8, ease: "easeOut" }} // Un peu plus lent pour la douceur (0.8s)
+        className="relative z-10"
+      >
+        
+        <Hero />
+        <BentoGrid />
+        <FinalCTA />
+      </motion.div>
+    </div>
   );
 }
