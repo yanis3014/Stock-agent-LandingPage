@@ -67,8 +67,11 @@ export default function SplashScreen({ finishLoading, onTransitionStart }: Splas
           </motion.div>
 
           {/* Layer 2: Green Energy Vignette (Foreground Mask) */}
-          <div 
+          <motion.div 
             className="absolute inset-0 z-1 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2.5, ease: "easeOut", delay: 0.5 }}
             style={{
               background: `radial-gradient(circle at center, rgba(16, 185, 129, 0.2) 0%, rgba(0,0,0,0) 50%, #020817 100%)`
             }}
@@ -104,7 +107,7 @@ export default function SplashScreen({ finishLoading, onTransitionStart }: Splas
                     pathLength: 1,
                   }}
                   transition={{
-                    pathLength: { duration: 1.5, ease: "easeInOut", delay: 1.5 },
+                    pathLength: { duration: 1.5, ease: "easeInOut", delay: 1.3 },
                   }}
                 />
               </g>
@@ -115,7 +118,7 @@ export default function SplashScreen({ finishLoading, onTransitionStart }: Splas
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.0, duration: 0.5 }}
-              className="text-4xl md:text-6xl font-extrabold text-white tracking-tight"
+              className="text-4xl md:text-6xl font-bold text-white tracking-tight"
             >
               {Array.from("FlowStock").map((letter, index) => (
                 <motion.span

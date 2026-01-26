@@ -15,7 +15,7 @@ const techStack = [
 
 export default function BentoGrid() {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -26,7 +26,7 @@ export default function BentoGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-card border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-primary/5 to-transparent group"
+              className="bg-white/5 backdrop-blur-sm border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-primary/5 to-transparent group"
             >
             <div className="flex flex-col h-full">
               <div className="inline-flex p-4 bg-primary/10 rounded-2xl mb-6 w-fit group-hover:bg-primary/20 transition-colors duration-300">
@@ -58,7 +58,7 @@ Turn your historical data into future revenue. Anticipate demand before it even 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-card border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 group"
+              className="bg-white/5 backdrop-blur-sm border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 group"
             >
             <div className="flex flex-col h-full">
               <div className="inline-flex p-4 bg-primary/10 rounded-2xl mb-6 w-fit group-hover:bg-primary/20 transition-colors duration-300">
@@ -81,7 +81,7 @@ Turn your historical data into future revenue. Anticipate demand before it even 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-card border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 group"
+              className="bg-white/5 backdrop-blur-sm border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 group"
             >
               <div className="flex flex-col h-full">
                 <div className="inline-flex p-4 bg-primary/10 rounded-2xl mb-6 w-fit group-hover:bg-primary/20 transition-colors duration-300">
@@ -104,7 +104,7 @@ Turn your historical data into future revenue. Anticipate demand before it even 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-card border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 group"
+              className="bg-white/5 backdrop-blur-sm border border-border/50 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 group"
             >
               <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
                 {/* Text Content - Left Side (2/3) */}

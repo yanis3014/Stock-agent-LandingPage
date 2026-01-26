@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -7,24 +6,11 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // In Tailwind v4, the theme is defined in CSS (@theme).
+  // We keep this object empty to avoid conflicts.
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
-      },
-      colors: {
-        background: 'var(--color-background)',
-        primary: 'var(--color-primary)',
-        card: 'var(--color-card)',
-        border: 'var(--color-border)',
-        'text-main': 'var(--color-text-main)',
-        'text-muted': 'var(--color-text-muted)',
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-      },
-    },
+    extend: {},
   },
+  plugins: [],
 };
-
 export default config;

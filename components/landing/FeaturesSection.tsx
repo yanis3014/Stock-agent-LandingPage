@@ -34,12 +34,7 @@ export default function FeaturesSection() {
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: "radial-gradient(ellipse at bottom, rgba(17, 34, 64, 0.2) 0%, #0A192F 50%)",
-        }}
-      />
+      {/* Background removed for LivingGrid visibility */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section Header */}

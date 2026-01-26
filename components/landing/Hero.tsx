@@ -8,17 +8,9 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: "radial-gradient(ellipse at center, rgba(17, 34, 64, 0.4) 0%, #0A192F 70%)",
-        }}
-      />
+      {/* Background gradient removed for LivingGrid visibility */}
 
-      {/* AI Particle Sphere - living energy visualization */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 opacity-70">
-        <AiParticleSphere />
-      </div>
+      
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">

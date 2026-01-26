@@ -85,9 +85,9 @@ export default function Pricing() {
   };
 
   return (
-    <section className="py-24 px-6 bg-background relative overflow-hidden">
+    <section className="py-24 px-6 relative overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}

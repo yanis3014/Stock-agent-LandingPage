@@ -20,13 +20,7 @@ export default function ComparisonSection() {
 
   return (
     <section className="relative py-24 overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: "radial-gradient(ellipse at center, rgba(17, 34, 64, 0.15) 0%, #0A192F 60%)",
-        }}
-      />
+      {/* Background removed for LivingGrid visibility */}
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Section Title */}

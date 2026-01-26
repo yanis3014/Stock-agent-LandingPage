@@ -7,7 +7,9 @@ import Hero from "@/components/landing/Hero";
 import BentoGrid from "@/components/landing/BentoGrid";
 import TrustSection from "@/components/landing/TrustSection";
 import FinalCTA from "@/components/landing/FinalCTA";
+import HowItWorks from "@/components/landing/HowItWorks";
 import SplashScreen from "@/components/ui/SplashScreen";
+import Testimonials from "@/components/landing/Testimonials";
 
 export default function Home() {
   // On garde uniquement ces deux états, isLoading est inutile ici
@@ -39,30 +41,7 @@ export default function Home() {
         )}
       </AnimatePresence>
       
-
-      {/* 1. Global Background (Fixed Layer 0) */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <motion.div 
-          className="absolute inset-0 opacity-[0.8]"
-          animate={{ 
-            backgroundPosition: ["0px 0px", "60px 60px"] 
-          }}
-          transition={{ 
-            duration: 20, 
-            ease: "linear", 
-            repeat: Infinity 
-          }}
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px)
-            `,
-            backgroundSize: "30px 30px"
-          }}
-        />
-      </div>
-
-<Navbar isLoaded={showHome} />
+      <Navbar isLoaded={showHome} />
       {/* 2. Scrollable Content (Layer 10) */}
       <motion.div
         initial={{ y: 100, scale: 0.98, opacity: 0 }}
@@ -76,7 +55,8 @@ export default function Home() {
       >
         
         <Hero />
-        <BentoGrid />
+        <HowItWorks />
+        <Testimonials/>
         <FinalCTA />
       </motion.div>
     </div>

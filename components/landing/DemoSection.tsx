@@ -17,13 +17,7 @@ export default function DemoSection() {
 
   return (
     <section className="relative py-24 overflow-hidden">
-      {/* Subtle gradient background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: "radial-gradient(ellipse at top, rgba(17, 34, 64, 0.2) 0%, #0A192F 50%)",
-        }}
-      />
+      {/* Subtle background removed for LivingGrid visibility */}
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Section Header */}

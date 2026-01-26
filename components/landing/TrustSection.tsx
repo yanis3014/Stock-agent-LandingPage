@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function TrustSection() {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Founder's Message */}
         <motion.div
