@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/landing/Hero";
 import PainSection from "@/components/landing/PainSection";
 import HowItWorks from "@/components/landing/HowItWorks";
+import DemoSection from "@/components/landing/DemoSection";
 import Testimonials from "@/components/landing/Testimonials";
 import FinalCTA from "@/components/landing/FinalCTA";
 import SplashScreen from "@/components/ui/SplashScreen";
@@ -49,6 +50,7 @@ export default function Home() {
         <Hero />
         <PainSection />
         <HowItWorks />
+        <DemoSection />
         <Testimonials />
         <FinalCTA />
       </motion.main>

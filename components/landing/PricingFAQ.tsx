@@ -1,142 +1,194 @@
 "use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Terminal, ArrowRight, ShieldCheck, Zap, AlertCircle } from "lucide-react";
+import { Zap, Settings, Clock, ShieldCheck, ArrowRight } from "lucide-react";
+
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const faqs = [
   {
-    question: "Do I need to migrate my data manually?",
-    answer: "Absolutely not. FlowStock connects directly to your existing ecosystem (Shopify, Amazon, NetSuite) via secure APIs. The initial sync takes about 2 minutes and runs in the background.",
-    icon: Zap
+    question: "Est-ce que je dois changer mon logiciel de caisse ?",
+    answer:
+      "Non. FlowStock se connecte à votre caisse existante via API sécurisée en lecture seule. Compatible Lightspeed, Zelty, L'Addition, Square, et d'autres sur demande. Vous ne touchez à rien dans votre setup actuel.",
+    Icon: Zap,
   },
   {
-    question: "What happens if the AI makes a mistake?",
-    answer: "You are always in control. By default, the Agent operates in 'Draft Mode'. It prepares the Purchase Orders, but you must click 'Approve' to send them. You can switch to full Autopilot only when you are ready.",
-    icon: AlertCircle
+    question: "Que se passe-t-il si mon logiciel de caisse n'est pas compatible ?",
+    answer:
+      "Vous pouvez importer vos données manuellement via CSV ou Excel. Ce n'est pas idéal, mais ça marche dès le premier jour. La compatibilité native avec d'autres caisses est notre priorité de développement.",
+    Icon: Settings,
   },
   {
-    question: "Is my business data secure?",
-    answer: "Security is our priority. We are SOC-2 Type II compliant. Your data is processed in isolated containers and is never used to train our public models or shared with other clients.",
-    icon: ShieldCheck
+    question: "L'essai gratuit, ça dure combien de temps ?",
+    answer:
+      "14 jours complets, toutes fonctionnalités incluses, sans carte bancaire. Vous décidez de continuer seulement si vous voyez un impact réel sur votre food cost.",
+    Icon: Clock,
   },
   {
-    question: "Can I handle multiple warehouses?",
-    answer: "Yes. The Pro and Enterprise plans support multi-location inventory. The AI optimizes stock transfers between warehouses to reduce shipping zones and costs.",
-    icon: Terminal
+    question: "Est-ce que mes données restent confidentielles ?",
+    answer:
+      "Vos données sont hébergées en France, chiffrées, et ne sont jamais partagées ni vendues. FlowStock n'accède à vos données que pour faire fonctionner le service. Aucun modèle public n'est entraîné sur vos informations.",
+    Icon: ShieldCheck,
   },
   {
-    question: "How does the billing work?",
-    answer: "We bill based on your GMV (Gross Merchandise Value) tier. If you have a seasonal spike, we don't automatically upgrade you unless the volume sustains for 3 consecutive months.",
-    icon: ArrowRight
-  }
+    question: "Puis-je annuler à tout moment ?",
+    answer:
+      "Oui, sans frais ni engagement. Vous annulez depuis votre espace client en 2 clics. Votre accès reste actif jusqu'à la fin de la période payée.",
+    Icon: ArrowRight,
+  },
 ];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+};
 
 export default function PricingFAQ() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="py-24 max-w-7xl mx-auto px-6">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Frequently Answered <span className="text-gradient-primary">Questions</span>
-        </h2>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-        
-        {/* LEFT COLUMN: Questions List */}
-        <div className="md:col-span-5 flex flex-col gap-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              onMouseEnter={() => setActiveIndex(index)}
-              onClick={() => setActiveIndex(index)} // For mobile/touch
-              className={`p-6 rounded-xl cursor-pointer transition-all duration-300 border backdrop-blur-sm relative overflow-hidden group ${
-                activeIndex === index 
-                  ? "bg-primary/10 border-primary/50 shadow-[0_0_20px_rgba(0,255,148,0.1)]" 
-                  : "bg-surface/30 border-white/5 hover:bg-white/5 hover:border-white/10"
-              }`}
-            >
-              <div className="flex items-center gap-4 relative z-10">
-                <span className={`text-sm font-mono transition-colors ${activeIndex === index ? "text-primary" : "text-text-muted"}`}>
-                  0{index + 1}
-                </span>
-                <h3 className={`font-semibold text-lg transition-colors ${activeIndex === index ? "text-white" : "text-text-muted group-hover:text-white"}`}>
-                  {faq.question}
-                </h3>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* RIGHT COLUMN: Interactive Answer Screen (Sticky) */}
-        <div className="md:col-span-7 hidden md:block relative h-full min-h-[400px]">
-          <div className="sticky top-10">
-            <div className="glass-card w-full h-full min-h-[300px] p-10 border-primary/20 bg-[#0a192f]/80 relative overflow-hidden flex flex-col justify-center">
-              
-              {/* Decorative Terminal Header */}
-              <div className="absolute top-0 left-0 w-full h-10 bg-black/20 border-b border-white/5 flex items-center px-4 gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                <div className="w-3 h-3 rounded-full bg-green-500/50" />
-                <div className="ml-4 text-xs font-mono text-primary/50">agent_response.ts</div>
-              </div>
-
-              {/* Content Transition */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="pt-8"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                    {/* Dynamic Icon Rendering */}
-                    {(() => {
-                      const Icon = faqs[activeIndex].icon;
-                      return <Icon className="w-6 h-6 text-primary" />;
-                    })()}
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-white mb-6">
-                    {faqs[activeIndex].question}
-                  </h3>
-                  
-                  <div className="text-lg text-text-muted leading-relaxed font-light border-l-2 border-primary/30 pl-6">
-                    {faqs[activeIndex].answer}
-                  </div>
-                  
-                  <div className="mt-8 flex items-center gap-2 text-sm text-primary/60 font-mono">
-                    <span className="w-2 h-4 bg-primary/60 animate-pulse" />
-                    Awaiting input...
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-
-        {/* MOBILE ONLY ANSWER (Fallback) */}
-        <div className="md:hidden col-span-1 mt-4">
-          <motion.div 
-            key={activeIndex}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-6 border-primary/20 bg-primary/5"
+    <section className="py-20 px-6">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="text-center mb-14"
+        >
+          <h2
+            className="font-heading font-bold"
+            style={{
+              fontSize: "clamp(1.8rem, 3vw, 2.2rem)",
+              color: "#FAF7F2",
+            }}
           >
-            <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
-              {(() => {
-                const Icon = faqs[activeIndex].icon;
-                return <Icon className="w-4 h-4" />;
-              })()}
-              Answer:
-            </h4>
-            <p className="text-text-muted leading-relaxed">{faqs[activeIndex].answer}</p>
-          </motion.div>
-        </div>
+            Questions fréquentes
+          </h2>
+        </motion.div>
 
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-6"
+        >
+          {/* Left — question list */}
+          <div className="space-y-1">
+            {faqs.map((faq, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className="w-full text-left px-4 py-4 rounded-xl flex items-start gap-3 transition-all duration-200 cursor-pointer"
+                style={{
+                  background:
+                    activeIndex === i
+                      ? "rgba(64,145,108,0.1)"
+                      : "transparent",
+                  border:
+                    activeIndex === i
+                      ? "1px solid rgba(64,145,108,0.2)"
+                      : "1px solid transparent",
+                }}
+              >
+                <faq.Icon
+                  size={15}
+                  style={{
+                    color: activeIndex === i ? "#40916C" : "#8A9E96",
+                    flexShrink: 0,
+                    marginTop: "2px",
+                    transition: "color 0.2s",
+                  }}
+                />
+                <span
+                  className="text-sm leading-relaxed"
+                  style={{
+                    color: activeIndex === i ? "#FAF7F2" : "#8A9E96",
+                    fontFamily: "var(--font-family-sans)",
+                    transition: "color 0.2s",
+                  }}
+                >
+                  {faq.question}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Right — terminal answer panel */}
+          <div
+            className="rounded-xl overflow-hidden"
+            style={{
+              background: "#0E1614",
+              border: "1px solid rgba(255,255,255,0.08)",
+              minHeight: "240px",
+            }}
+          >
+            {/* Terminal header */}
+            <div
+              className="flex items-center justify-between px-4 py-3"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <div className="flex items-center gap-1.5">
+                {["#C1440E", "#ED8936", "#40916C"].map((color, i) => (
+                  <div
+                    key={i}
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ background: color }}
+                  />
+                ))}
+              </div>
+              <span
+                className="text-xs"
+                style={{ color: "#8A9E96", fontFamily: "monospace" }}
+              >
+                flowstock_agent.ts
+              </span>
+              <div style={{ width: "52px" }} />
+            </div>
+
+            {/* Answer content */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease }}
+                className="p-6"
+              >
+                {/* Prompt line */}
+                <div
+                  className="flex items-center gap-2 mb-4"
+                  style={{ fontFamily: "monospace" }}
+                >
+                  <span style={{ color: "#40916C", fontSize: "12px" }}>▶</span>
+                  <span style={{ color: "#8A9E96", fontSize: "12px" }}>
+                    agent.answer(
+                    <span style={{ color: "#52B788" }}>
+                      &quot;{faqs[activeIndex].question.slice(0, 28)}…&quot;
+                    </span>
+                    )
+                  </span>
+                </div>
+
+                {/* Answer text */}
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{
+                    color: "#FAF7F2",
+                    fontFamily: "var(--font-family-sans)",
+                    lineHeight: 1.75,
+                  }}
+                >
+                  {faqs[activeIndex].answer}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
