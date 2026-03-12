@@ -19,8 +19,8 @@ export default function SplashScreen({
     const t2 = setTimeout(() => {
       setPhase("exit");
       onTransitionStart?.();
-    }, 2800);
-    const t3 = setTimeout(() => finishLoading(), 3650);
+    }, 3600);
+    const t3 = setTimeout(() => finishLoading(), 4450);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
