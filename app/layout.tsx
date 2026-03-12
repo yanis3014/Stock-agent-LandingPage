@@ -1,31 +1,38 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Sora, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
-import LivingGridBackground from "@/components/ui/LivingGridBackground";
+import WarmBackground from "@/components/ui/WarmBackground";
 
-const inter = Inter({
-  variable: "--font-inter",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
+  weight: ["300", "400", "600", "700", "800"],
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "flowStock - Agent IA de Gestion de Stock",
-  description: "Automatisez votre gestion de stock avec l'intelligence artificielle",
+  title: "FlowStock — Agent IA de Gestion de Stock pour Restaurants",
+  description:
+    "FlowStock analyse vos stocks en temps réel, prédit les ruptures et réduit votre gaspillage. Fait pour les restaurateurs indépendants.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr">
-      <body className={`${inter.variable} font-sans antialiased`}>
-        {/* Global Living Grid Background */}
-        <LivingGridBackground />
-        
+      <body
+        className={`${sora.variable} ${dmSans.variable} font-sans antialiased`}
+      >
+        <WarmBackground />
         {children}
         <Footer />
       </body>
