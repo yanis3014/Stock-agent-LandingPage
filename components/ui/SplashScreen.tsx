@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface SplashScreenProps {
@@ -14,19 +14,29 @@ export default function SplashScreen({
 }: SplashScreenProps) {
   const [phase, setPhase] = useState<"enter" | "hold" | "exit">("enter");
 
+  // Stocker les callbacks en refs pour éviter de les mettre en deps
+  // et ainsi ne jamais redéclencher l'effet (fix StrictMode double-mount)
+  const finishLoadingRef = useRef(finishLoading);
+  const onTransitionStartRef = useRef(onTransitionStart);
+  useEffect(() => {
+    finishLoadingRef.current = finishLoading;
+    onTransitionStartRef.current = onTransitionStart;
+  });
+
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("hold"), 1400);
     const t2 = setTimeout(() => {
       setPhase("exit");
-      onTransitionStart?.();
-    }, 3600);
-    const t3 = setTimeout(() => finishLoading(), 4450);
+      onTransitionStartRef.current?.();
+    }, 2800);
+    const t3 = setTimeout(() => finishLoadingRef.current(), 3650);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
     };
-  }, [finishLoading, onTransitionStart]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isExiting = phase === "exit";
 
