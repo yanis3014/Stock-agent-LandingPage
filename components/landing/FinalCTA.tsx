@@ -1,72 +1,226 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Mail } from "lucide-react";
 import { useState } from "react";
+import { Sparkles, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
+
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+};
 
 export default function FinalCTA() {
   const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const handleSubmit = () => {
+    if (!email.includes("@")) return;
+    setSubmitted(true);
+  };
 
   return (
-    <section className="relative w-full py-32 flex items-center justify-center overflow-hidden">
-      {/* Focused Glow behind the card */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-[80px] rounded-full pointer-events-none" />
-      
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        animate={{ y: [0, -10, 0] }} // Floating effect
-        // @ts-ignore - Framer motion type fix for transition on animate prop
-        transition={{ 
-          y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-          opacity: { duration: 0.8 } 
+    <section
+      id="waitlist"
+      className="relative z-10 py-32 px-6 overflow-hidden"
+      style={{ background: "rgba(26,60,52,0.3)" }}
+    >
+      {/* Ambient glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(64,145,108,0.15), transparent)",
+          filter: "blur(40px)",
         }}
-        className="relative z-10 w-full max-w-xl px-4"
-      >
-        {/* The "Bubble" Card */}
-        <div className="glass-card p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-[#112240]/95 via-[#0a192f]/95 to-[#020817]/95 text-center shadow-2xl relative overflow-hidden group">
-          
-          {/* Shine Effect on Hover */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
-          
-          {/* Icon Badge */}
-          <div className="mx-auto w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <Sparkles className="w-8 h-8 text-primary glow-primary" />
-          </div>
-          
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-            Join the Exclusive Waitlist
-          </h2>
-          
-          <p className="text-text-muted mb-8 text-lg">
-            Be the first to automate your inventory. <br className="hidden md:block"/>
-            <span className="text-primary font-medium">Limited spots available for the beta.</span>
-          </p>
-          
-          {/* Email Form */}
-          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-20" onSubmit={(e) => e.preventDefault()}>
-            <div className="relative flex-grow">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-surface/50 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder:text-text-muted focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
-              />
-            </div>
-            <button className="btn-primary py-4 px-8 rounded-xl flex items-center justify-center gap-2 whitespace-nowrap group-hover:shadow-[0_0_20px_rgba(0,255,148,0.4)] transition-shadow">
-              Join Now
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
-          
-          <p className="mt-6 text-sm text-text-muted/60">
-            No spam. Unsubscribe anytime.
-          </p>
-        </div>
-      </motion.div>
+      />
+
+      <div className="relative max-w-lg mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          animate={
+            submitted
+              ? {}
+              : {
+                  y: [0, -8, 0],
+                  transition: {
+                    duration: 4,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "loop",
+                  },
+                }
+          }
+          className="rounded-3xl p-10 md:p-14 text-center"
+          style={{
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(64,145,108,0.25)",
+            backdropFilter: "blur(20px)",
+            boxShadow:
+              "0 0 80px rgba(64,145,108,0.12), 0 40px 80px rgba(0,0,0,0.25)",
+          }}
+        >
+          {submitted ? (
+            /* Success state */
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, ease }}
+              className="flex flex-col items-center gap-4"
+            >
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center"
+                style={{ background: "rgba(64,145,108,0.15)" }}
+              >
+                <CheckCircle2 size={32} style={{ color: "#40916C" }} />
+              </div>
+              <h3
+                className="font-heading font-bold text-2xl"
+                style={{ color: "#FAF7F2" }}
+              >
+                Vous êtes sur la liste&nbsp;!
+              </h3>
+              <p
+                className="text-sm"
+                style={{
+                  color: "#8A9E96",
+                  fontFamily: "var(--font-family-sans)",
+                }}
+              >
+                On vous écrit dès que votre accès est prêt. D&apos;ici là,
+                parlez-en à un autre restaurateur 👨‍🍳
+              </p>
+            </motion.div>
+          ) : (
+            <>
+              {/* Icon badge */}
+              <div className="flex justify-center mb-6">
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center"
+                  style={{ background: "rgba(212,168,67,0.12)" }}
+                >
+                  <Sparkles size={26} style={{ color: "#D4A843" }} />
+                </div>
+              </div>
+
+              {/* Title */}
+              <h2
+                className="font-heading font-bold mb-3"
+                style={{
+                  fontSize: "clamp(1.4rem, 3vw, 1.9rem)",
+                  color: "#FAF7F2",
+                  lineHeight: 1.25,
+                }}
+              >
+                Votre prochain service sans rupture commence ici.
+              </h2>
+
+              {/* Subtitle */}
+              <p
+                className="text-sm mb-8"
+                style={{
+                  color: "#8A9E96",
+                  fontFamily: "var(--font-family-sans)",
+                }}
+              >
+                Accès bêta gratuit · Mise en place en 10 minutes · Aucune carte
+                bancaire requise
+              </p>
+
+              {/* Form */}
+              <div className="space-y-3">
+                {/* Email input */}
+                <div className="relative">
+                  <Mail
+                    size={16}
+                    className="absolute left-4 top-1/2 -translate-y-1/2"
+                    style={{ color: "#8A9E96" }}
+                  />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                    placeholder="votre@restaurant.fr"
+                    className="w-full pl-11 pr-4 py-4 rounded-xl outline-none transition-all duration-200"
+                    style={{
+                      background: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      color: "#FAF7F2",
+                      fontFamily: "var(--font-family-sans)",
+                      fontSize: "15px",
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "rgba(64,145,108,0.5)";
+                      e.target.style.boxShadow =
+                        "0 0 0 3px rgba(64,145,108,0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "rgba(255,255,255,0.1)";
+                      e.target.style.boxShadow = "none";
+                    }}
+                  />
+                </div>
+
+                {/* Submit button */}
+                <motion.button
+                  onClick={handleSubmit}
+                  onHoverStart={() => setHovered(true)}
+                  onHoverEnd={() => setHovered(false)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full relative overflow-hidden flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-200"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #40916C 0%, #2D6A4F 100%)",
+                    color: "#FAF7F2",
+                    fontFamily: "var(--font-family-heading)",
+                    fontSize: "15px",
+                    boxShadow: hovered
+                      ? "0 8px 32px rgba(64,145,108,0.4)"
+                      : "0 4px 16px rgba(64,145,108,0.2)",
+                  }}
+                >
+                  {/* Shimmer on hover */}
+                  {hovered && (
+                    <motion.span
+                      className="absolute inset-0"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "200%" }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)",
+                      }}
+                    />
+                  )}
+                  <span className="relative z-10">
+                    Rejoindre la liste d&apos;attente
+                  </span>
+                  <ArrowRight size={18} className="relative z-10" />
+                </motion.button>
+              </div>
+
+              {/* Reassurance */}
+              <p
+                className="text-xs mt-5"
+                style={{
+                  color: "rgba(138,158,150,0.6)",
+                  fontFamily: "var(--font-family-sans)",
+                }}
+              >
+                Pas de spam. Pas de carte bleue. On vous écrit quand votre accès
+                est prêt.
+              </p>
+            </>
+          )}
+        </motion.div>
+      </div>
     </section>
   );
 }
